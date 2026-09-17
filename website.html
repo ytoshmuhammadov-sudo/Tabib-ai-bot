@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabib AI — Tibbiy Konsultant</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f8f9fc;
+  --white: #ffffff;
+  --accent: #2563eb;
+  --accent2: #059669;
+  --danger: #dc2626;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 16px;
+}
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #0369a1 100%);
+  color: white; text-align: center; padding: 60px 20px 80px;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 30px; padding: 6px 18px;
+  font-size: 13px; margin-bottom: 24px;
+}
+.hero h1 { font-size: clamp(32px, 8vw, 56px); font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+.hero h1 span { color: #93c5fd; }
+.hero p { font-size: 17px; opacity: 0.85; max-width: 560px; margin: 0 auto 36px; line-height: 1.6; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-tg {
+  background: #2AABEE; color: white;
+  padding: 14px 28px; border-radius: 12px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none; display: inline-flex;
+  align-items: center; gap: 8px;
+  transition: opacity 0.2s;
+}
+.btn-tg:hover { opacity: 0.9; }
+.btn-outline {
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  color: white; padding: 14px 28px; border-radius: 12px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none;
+}
+
+/* STATS */
+.stats {
+  background: var(--white);
+  display: flex; justify-content: center;
+  gap: 0; border-bottom: 1px solid var(--border);
+}
+.stat { text-align: center; padding: 24px 32px; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-num { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* SPECIALTIES */
+.section { padding: 60px 20px; max-width: 900px; margin: 0 auto; }
+.section-title { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.section-sub { text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 15px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.spec-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.spec-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.spec-icon { font-size: 32px; margin-bottom: 10px; }
+.spec-name { font-size: 14px; font-weight: 600; }
+.spec-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* CHAT DEMO */
+.chat-section { background: var(--white); padding: 60px 20px; }
+.chat-demo-wrap { max-width: 700px; margin: 0 auto; }
+.chat-box {
+  background: #f1f5f9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.chat-header {
+  background: var(--accent);
+  color: white; padding: 14px 18px;
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 600;
+}
+.chat-messages { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.chat-msg { display: flex; gap: 10px; }
+.chat-msg.user { flex-direction: row-reverse; }
+.chat-avatar {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+  background: #dbeafe;
+}
+.chat-msg.user .chat-avatar { background: #d1fae5; }
+.chat-bubble {
+  max-width: 78%; padding: 11px 14px;
+  border-radius: 14px; font-size: 13px; line-height: 1.6;
+  background: white; border: 1px solid var(--border);
+}
+.chat-msg.user .chat-bubble { background: var(--accent); color: white; border: none; }
+
+/* HOW IT WORKS */
+.steps { display: flex; flex-direction: column; gap: 20px; max-width: 600px; margin: 0 auto; }
+.step { display: flex; gap: 16px; align-items: flex-start; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; flex-shrink: 0;
+}
+.step-text h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.step-text p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* EMERGENCY */
+.emergency-section {
+  background: #fef2f2;
+  border-top: 3px solid var(--danger);
+  padding: 40px 20px; text-align: center;
+}
+.emergency-section h2 { color: var(--danger); font-size: 24px; margin-bottom: 12px; }
+.emergency-section p { color: #7f1d1d; font-size: 15px; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+/* CTA */
+.cta-section {
+  background: linear-gradient(135deg, #1e3a8a, #0369a1);
+  color: white; text-align: center; padding: 60px 20px;
+}
+.cta-section h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.cta-section p { opacity: 0.8; margin-bottom: 28px; font-size: 15px; }
+
+/* FOOTER */
+footer {
+  background: #111827; color: #9ca3af;
+  text-align: center; padding: 24px 20px;
+  font-size: 13px; line-height: 1.7;
+}
+
+@media (max-width: 500px) {
+  .stats { flex-direction: column; }
+  .stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat:last-child { border-bottom: none; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🌍 3 tilda · 20+ soha · 24/7</div>
+  <h1>Tabib <span>AI</span></h1>
+  <p>Dunyodagi eng yaxshi shifokorlar darajasida tibbiy maslahat — istalgan vaqt, istalgan joydan</p>
+  <div class="hero-btns">
+    <a href="https://t.me/tabib_ai_bot" class="btn-tg">
+      ✈️ Telegram'da ochish
+    </a>
+    <a href="#demo" class="btn-outline">Demo ko'rish</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">20+</div>
+    <div class="stat-label">Tibbiy soha</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Til (UZ/RU/EN)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Ishlash vaqti</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">AI</div>
+    <div class="stat-label">Claude asosida</div>
+  </div>
+</div>
+
+<!-- SPECIALTIES -->
+<div class="section">
+  <h2 class="section-title">Barcha tibbiy sohalar</h2>
+  <p class="section-sub">Har bir sohada eng yuqori darajada maslahat</p>
+  <div class="grid">
+    <div class="spec-card"><div class="spec-icon">🧠</div><div class="spec-name">Nevrologiya</div><div class="spec-desc">Bosh miya, asab tizimi</div></div>
+    <div class="spec-card"><div class="spec-icon">❤️</div><div class="spec-name">Kardiologiya</div><div class="spec-desc">Yurak, qon tomir</div></div>
+    <div class="spec-card"><div class="spec-icon">🦴</div><div class="spec-name">Ortopediya</div><div class="spec-desc">Suyak, bo'g'im</div></div>
+    <div class="spec-card"><div class="spec-icon">🫁</div><div class="spec-name">Pulmonologiya</div><div class="spec-desc">O'pka, nafas</div></div>
+    <div class="spec-card"><div class="spec-icon">🍽️</div><div class="spec-name">Gastro</div><div class="spec-desc">Oshqozon, ichak</div></div>
+    <div class="spec-card"><div class="spec-icon">🧬</div><div class="spec-name">Endokrinologiya</div><div class="spec-desc">Gormonlar, diabet</div></div>
+    <div class="spec-card"><div class="spec-icon">👶</div><div class="spec-name">Pediatriya</div><div class="spec-desc">Bolalar salomatligi</div></div>
+    <div class="spec-card"><div class="spec-icon">🧘</div><div class="spec-name">Psixiatriya</div><div class="spec-desc">Ruhiy salomatlik</div></div>
+    <div class="spec-card"><div class="spec-icon">🔬</div><div class="spec-name">Onkologiya</div><div class="spec-desc">Saraton kasalligi</div></div>
+    <div class="spec-card"><div class="spec-icon">🦷</div><div class="spec-name">Stomatologiya</div><div class="spec-desc">Tish va og'iz</div></div>
+    <div class="spec-card"><div class="spec-icon">👁️</div><div class="spec-name">Oftalmologiya</div><div class="spec-desc">Ko'z kasalliklari</div></div>
+    <div class="spec-card"><div class="spec-icon">🩺</div><div class="spec-name">Umumiy tibbiyot</div><div class="spec-desc">Har qanday savol</div></div>
+  </div>
+</div>
+
+<!-- CHAT DEMO -->
+<div class="chat-section" id="demo">
+  <div class="chat-demo-wrap">
+    <h2 class="section-title">Qanday ishlaydi?</h2>
+    <p class="section-sub" style="margin-bottom:30px">Real suhbat namunasi</p>
+    <div class="chat-box">
+      <div class="chat-header">
+        <span>🧠</span> Tabib AI
+        <span style="margin-left:auto;font-size:12px;opacity:0.8;">● Online</span>
+      </div>
+      <div class="chat-messages">
+        <div class="chat-msg user">
+          <div class="chat-avatar">👤</div>
+          <div class="chat-bubble">3 kundan beri kuchli bosh og'rig'im bor, ko'z oldim qorayadi, ko'ngil ayniydi</div>
+        </div>
+        <div class="chat-msg">
+          <div class="chat-avatar">🧠</div>
+          <div class="chat-bubble">
+            🔍 <strong>Tahlil:</strong> Simptomlaringiz — 3 kunlik bosh og'rig'i, ko'z oldining qorayishi va ko'ngil aynishi — bir nechta muhim holatni ko'rsatishi mumkin.<br><br>
+            🩺 <strong>Ehtimoliy sabablar:</strong><br>
+            1. Migren (eng ehtimol) — pulsatsion og'riq, yorug'ga sezuvchanlik<br>
+            2. Arterial bosim ko'tarilishi — o'lchang<br>
+            3. Vestibular buzilish — dizziness bilan<br><br>
+            📋 <strong>Tekshiruvlar:</strong> Qon bosimni o'lchang, nevrolog ko'rigi, EEG<br><br>
+            ⚕️ <em>Bu maslahat maqsadida — vrach ko'rigidan o'ting.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW -->
+<div class="section">
+  <h2 class="section-title">Qanday boshlash kerak</h2>
+  <p class="section-sub" style="margin-bottom:36px">3 ta oddiy qadam</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <h3>Telegramni oching</h3>
+        <p>@tabib_ai_bot ni qidiring yoki quyidagi tugmani bosing</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <h3>/start yozing</h3>
+        <p>Botni ishga tushiring va tilni tanlang — o'zbek, rus yoki ingliz</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <h3>Savolingizni yozing</h3>
+        <p>Simptomlaringizni tasvirlab bering — bot 30 soniyada javob beradi</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMERGENCY -->
+<div class="emergency-section">
+  <h2>🚨 Favqulodda holatda darhol 103 ga qo'ng'iroq qiling!</h2>
+  <p>Ko'krak og'rig'i, yuz qiyshayishi, nutq buzilishi, ong yo'qotish, birinchi marta tutqanoq — bu belgilarda bot kutmang, darhol tez yordam chaqiring.</p>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Hoziroq sinab ko'ring</h2>
+  <p>Bepul · Ro'yxatdan o'tish shart emas · 24/7</p>
+  <a href="https://t.me/tabib_ai_bot" class="btn-tg" style="display:inline-flex;">
+    ✈️ Telegramda ochish
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>⚕️ <strong>Muhim eslatma:</strong> Tabib AI maslahat maqsadida ishlaydi.<br>
+  Yakuniy tashxis va davolash uchun malakali shifokorga murojaat qiling.</p>
+  <p style="margin-top:10px;">© 2024 Tabib AI · Barcha huquqlar himoyalangan</p>
+</footer>
+
+</body>
+</html>
